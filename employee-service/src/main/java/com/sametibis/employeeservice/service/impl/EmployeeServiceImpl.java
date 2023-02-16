@@ -34,4 +34,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDto employeeDto = EmployeeMapper.MAPPER.mapToEmployeeDto(employee);
         return Optional.of(employeeDto);
     }
+
+    @Override
+    public Optional<EmployeeDto> getEmployeeById(Long id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found!") );
+        EmployeeDto employeeDto = EmployeeMapper.MAPPER.mapToEmployeeDto(employee);
+        return Optional.of(employeeDto);
+    }
 }

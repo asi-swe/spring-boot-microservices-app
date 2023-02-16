@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface EmployeeService {
     EmployeeDto createEmployee(EmployeeDto employeeDto);
     Optional<EmployeeDto> getEmployeeByEmail(String email);
+    Optional<EmployeeDto> getEmployeeById(Long id);
 }

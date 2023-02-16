@@ -10,18 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/employee")
+@RequestMapping("/api/employees")
 public class EmployeeController {
     private final EmployeeServiceImpl employeeService;
 
-    @PostMapping("add-employee")
+    @PostMapping("/add-employee")
     public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         EmployeeDto savedEmployeeDto = employeeService.createEmployee(employeeDto);
         return new ResponseEntity<>(savedEmployeeDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{employee-email}")
-    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable("employee-email") String email) {
+    @GetMapping("/{employee-id}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("employee-id") Long id) {
+        EmployeeDto employeeDto = employeeService.getEmployeeById(id).get();
+        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/employee")
+    public ResponseEntity<EmployeeDto> getEmployee(@RequestParam String email) {
         EmployeeDto employeeDto = employeeService.getEmployeeByEmail(email).get();
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
