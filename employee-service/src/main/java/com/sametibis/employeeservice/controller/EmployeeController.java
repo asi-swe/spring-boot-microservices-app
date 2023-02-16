@@ -1,5 +1,6 @@
 package com.sametibis.employeeservice.controller;
 
+import com.sametibis.employeeservice.dto.ApiResponseDto;
 import com.sametibis.employeeservice.dto.EmployeeDto;
 import com.sametibis.employeeservice.service.impl.EmployeeServiceImpl;
 import jakarta.validation.Valid;
@@ -21,9 +22,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employee-id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("employee-id") Long id) {
-        EmployeeDto employeeDto = employeeService.getEmployeeById(id).get();
-        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    public ResponseEntity<ApiResponseDto> getEmployeeById(@PathVariable("employee-id") Long id) {
+        ApiResponseDto apiResponseDto = employeeService.getEmployeeById(id).get();
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 
 

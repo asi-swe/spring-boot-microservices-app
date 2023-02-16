@@ -12,4 +12,6 @@ public class EmployeeDto {
     @Email(message = "Invalid email")
     @NotNull(message = "Email can not be null!")
     private String email;
+    @NotNull(message = "Department code can not be null!")
+    private String departmentCode;
 }
