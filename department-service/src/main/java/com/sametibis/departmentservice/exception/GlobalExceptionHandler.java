@@ -12,20 +12,15 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    public GlobalExceptionHandler() {
-        System.out.println("created");
-    }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
-        System.out.println("HERE");
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
                 "DEPARTMENT_NOT_FOUND",
                 exception.getMessage(),
                 webRequest.getDescription(false)
         );
-        System.out.println(errorDetails);
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
@@ -37,7 +32,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 exception.getMessage(),
                 webRequest.getDescription(false)
         );
-        System.out.println(errorDetails);
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
