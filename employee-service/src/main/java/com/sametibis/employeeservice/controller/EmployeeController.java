@@ -29,8 +29,8 @@ public class EmployeeController {
 
 
     @GetMapping("/employee")
-    public ResponseEntity<EmployeeDto> getEmployee(@RequestParam String email) {
-        EmployeeDto employeeDto = employeeService.getEmployeeByEmail(email).get();
-        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    public ResponseEntity<ApiResponseDto> getEmployee(@RequestParam String email) {
+       ApiResponseDto apiResponseDto = employeeService.getEmployeeByEmail(email).get();
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 }

@@ -41,10 +41,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Optional<EmployeeDto> getEmployeeByEmail(String email) {
+    public Optional<ApiResponseDto> getEmployeeByEmail(String email) {
+
+
+
         Employee employee = employeeRepository.findEmployeeByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Employee not found with email: " + email));
+        DepartmentDto departmentDto = apiFeignClient.getDepartmentDto(employee.getDepartmentCode()) ;
         EmployeeDto employeeDto = EmployeeMapper.MAPPER.mapToEmployeeDto(employee);
-        return Optional.of(employeeDto);
+        ApiResponseDto apiResponseDto = new ApiResponseDto(employeeDto, departmentDto);
+        return Optional.of(apiResponseDto);
     }
 
     @Override

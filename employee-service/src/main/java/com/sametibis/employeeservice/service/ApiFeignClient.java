@@ -11,6 +11,7 @@ public interface ApiFeignClient {
     @GetMapping("/api/departments/{department-code}")
     DepartmentDto getDepartmentDto(@PathVariable("department-code") String departmentCode);
 
+
 }
 
 
