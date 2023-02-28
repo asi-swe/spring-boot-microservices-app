@@ -10,6 +10,7 @@ import com.sametibis.employeeservice.mapper.EmployeeMapper;
 import com.sametibis.employeeservice.repository.EmployeeRepository;
 import com.sametibis.employeeservice.service.ApiFeignClient;
 import com.sametibis.employeeservice.service.EmployeeService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Optional.of(apiResponseDto);
     }
 
+    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartmentResponse")
     @Override
     public Optional<ApiResponseDto> getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found!") );
@@ -72,6 +74,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         EmployeeDto employeeDto = EmployeeMapper.MAPPER.mapToEmployeeDto(employee);
         ApiResponseDto apiResponseDto = new ApiResponseDto(employeeDto, departmentDto);
+        return Optional.of(apiResponseDto);
+    }
+
+
+    public Optional<ApiResponseDto> getDefaultDepartmentResponse(Long id, Exception exception) {
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found!") );
+        DepartmentDto defaultDepartment = new DepartmentDto(9999L, "Default Department", "RD-01", "Default Department");
+        EmployeeDto employeeDto = EmployeeMapper.MAPPER.mapToEmployeeDto(employee);
+        ApiResponseDto apiResponseDto = new ApiResponseDto(employeeDto, defaultDepartment);
         return Optional.of(apiResponseDto);
     }
 }

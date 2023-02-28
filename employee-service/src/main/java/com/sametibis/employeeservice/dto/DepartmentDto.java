@@ -1,8 +1,11 @@
 package com.sametibis.employeeservice.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DepartmentDto {
     private Long id;
     private String departmentName;
