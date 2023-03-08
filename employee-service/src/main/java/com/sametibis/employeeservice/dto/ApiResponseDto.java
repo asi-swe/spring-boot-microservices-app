@@ -8,4 +8,5 @@ import lombok.Data;
 public class ApiResponseDto {
     private EmployeeDto employeeDto;
     private DepartmentDto departmentDto;
+    private OrganizationDto organizationDto;
 }

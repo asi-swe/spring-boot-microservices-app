@@ -14,4 +14,5 @@ public class EmployeeDto {
     private String email;
     @NotNull(message = "Department code can not be null!")
     private String departmentCode;
+    private String organizationCode;
 }
